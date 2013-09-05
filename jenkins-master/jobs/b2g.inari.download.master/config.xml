@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <EnvInjectJobProperty plugin="envinject@1.88">
+      <info>
+        <propertiesContent>URL=https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/inari.zip
+USERNAME=</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <contributors/>
+    </EnvInjectJobProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.35">
+      <spec>H * * * *</spec>
+      <entries>
+        <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/inari.zip</url>
+          <username></username>
+          <password></password>
+          <proxyActivated>false</proxyActivated>
+          <checkStatus>false</checkStatus>
+          <statusCode>200</statusCode>
+          <timeout>300</timeout>
+          <checkETag>false</checkETag>
+          <checkLastModificationDate>true</checkLastModificationDate>
+          <inspectingContent>false</inspectingContent>
+          <contentTypes/>
+        </org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
+      </entries>
+      <labelRestriction>false</labelRestriction>
+    </org.jenkinsci.plugins.urltrigger.URLTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>virtualenv .env
+pip install mozdownload==1.9
+mozdownload --url=${URL} --username=${USERNAME} --password=${PASSWORD}
+mv inari.zip b2g.zip</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>b2g.zip</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>false</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>b2g.inari.test.master</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.16">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.6"/>
+    <EnvInjectBuildWrapper plugin="envinject@1.88">
+      <info>
+        <propertiesContent>PATH=${WORKSPACE}/.env/bin:$PATH</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <EnvInjectPasswordWrapper plugin="envinject@1.88">
+      <injectGlobalPasswords>false</injectGlobalPasswords>
+      <passwordEntries>
+        <EnvInjectPasswordEntry>
+          <name>PASSWORD</name>
+          <value></value>
+        </EnvInjectPasswordEntry>
+      </passwordEntries>
+    </EnvInjectPasswordWrapper>
+  </buildWrappers>
+</project>
