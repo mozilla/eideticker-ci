@@ -26,12 +26,13 @@ Open http://localhost:8080/configure via your web browser. In the section
 
 * `ADB_PATH` - path to Android Debug Bridge (ADB)
 * `NDK_PATH` - path to Android NDK
-* `WIFI_NETWORK` - Available WiFi network to connect to (see below)
+* `WIFI_OPTIONS` - Optional arguments for connecting to an available WiFi network
+* `WIFI_SSID` - SSID for the WiFi network to connect to
 
-The `WIFI_NETWORK` is used by the
+The `WIFI_OPTIONS` variable is used by the
 [Gaia Command Line Interface](https://github.com/davehunt/gcli)
 tool, and accepts the format:
-`[--key-management KEY_MANAGEMENT] [--psk PSK] ssid`
+`[--security {WPA-PSK,WEP}] [--password PASSWORD]`
 
 ### Credentials
 

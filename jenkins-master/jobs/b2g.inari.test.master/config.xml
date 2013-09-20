@@ -185,7 +185,7 @@ pip install -e src/videocapture</command>
     <hudson.tasks.Shell>
       <command>pip install http://people.mozilla.com/~dhunt/gcli-0.1.tar.gz
 gcli setsetting screen.brightness 1
-gcli connectwifi ${WIFI_NETWORK}
+gcli connectwifi ${WIFI_OPTIONS} &quot;${WIFI_SSID}&quot;
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
