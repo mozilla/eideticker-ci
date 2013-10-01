@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-JENKINS_VERSION=1.509.2
+JENKINS_VERSION=1.509.3
 JENKINS_URL="http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war"
 JENKINS_WAR=jenkins.war
 
