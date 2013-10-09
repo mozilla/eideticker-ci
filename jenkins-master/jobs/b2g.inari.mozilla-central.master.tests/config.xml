@@ -114,7 +114,7 @@
       <command>virtualenv .env</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>unzip b2g.zip
+      <command>unzip -o b2g.zip
 cd b2g-distro
 ./flash.sh
 adb wait-for-device
