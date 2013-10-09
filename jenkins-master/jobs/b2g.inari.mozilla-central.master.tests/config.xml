@@ -185,10 +185,6 @@ adb shell su -c rm /mnt/sdcard/ntpclient</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>cd eideticker
-make -C src/videocapture/videocapture/decklink</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>cd eideticker
 python src/mozbase/setup_development.py
 pip install -e src/templeton
 pip install -e src/eideticker
