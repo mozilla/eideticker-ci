@@ -247,7 +247,7 @@ done</command>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.12">
       <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes>60</timeoutMinutes>
+        <timeoutMinutes>120</timeoutMinutes>
       </strategy>
       <failBuild>false</failBuild>
       <writingDescription>false</writingDescription>
