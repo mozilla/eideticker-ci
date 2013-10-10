@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>100</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.8">
+      <projectUrl>https://github.com/mozilla-b2g/gaia/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.2">
+    <scms>
+      <hudson.plugins.git.GitSCM plugin="git@1.5.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name></name>
+            <refspec></refspec>
+            <url>http://git.mozilla.org/releases/gaia.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>v1.2</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <disableSubmodules>false</disableSubmodules>
+        <recursiveSubmodules>false</recursiveSubmodules>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <authorOrCommitter>false</authorOrCommitter>
+        <clean>false</clean>
+        <wipeOutWorkspace>false</wipeOutWorkspace>
+        <pruneBranches>false</pruneBranches>
+        <remotePoll>false</remotePoll>
+        <ignoreNotifyCommit>false</ignoreNotifyCommit>
+        <useShallowClone>true</useShallowClone>
+        <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+        <gitTool>Default</gitTool>
+        <submoduleCfg class="list"/>
+        <relativeTargetDir>gaia</relativeTargetDir>
+        <reference></reference>
+        <excludedRegions></excludedRegions>
+        <excludedUsers></excludedUsers>
+        <gitConfigName></gitConfigName>
+        <gitConfigEmail></gitConfigEmail>
+        <skipTag>false</skipTag>
+        <includedRegions></includedRegions>
+        <scmName></scmName>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@1.5.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <name></name>
+            <refspec></refspec>
+            <url>https://github.com/mozilla/eideticker.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <disableSubmodules>false</disableSubmodules>
+        <recursiveSubmodules>true</recursiveSubmodules>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <authorOrCommitter>false</authorOrCommitter>
+        <clean>false</clean>
+        <wipeOutWorkspace>false</wipeOutWorkspace>
+        <pruneBranches>false</pruneBranches>
+        <remotePoll>false</remotePoll>
+        <ignoreNotifyCommit>false</ignoreNotifyCommit>
+        <useShallowClone>true</useShallowClone>
+        <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+        <gitTool>Default</gitTool>
+        <submoduleCfg class="list"/>
+        <relativeTargetDir>eideticker</relativeTargetDir>
+        <reference></reference>
+        <excludedRegions></excludedRegions>
+        <excludedUsers></excludedUsers>
+        <gitConfigName></gitConfigName>
+        <gitConfigEmail></gitConfigEmail>
+        <skipTag>false</skipTag>
+        <includedRegions></includedRegions>
+        <scmName></scmName>
+      </hudson.plugins.git.GitSCM>
+    </scms>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>H * * * *</spec>
+      <ignorePostCommitHooks>false</ignorePostCommitHooks>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
+      <project>b2g.inari.mozilla-aurora.download</project>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>virtualenv .env</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>unzip -o b2g.zip
+cd b2g-distro
+./flash.sh
+adb wait-for-device
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh -x
+
+cd gaia
+export lim=5
+while [ $lim -gt 0 ] ; do
+    echo trying $lim
+    GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
+    sleep 60
+    ps | grep &quot;reset-gaia&quot; | grep -v grep
+    if [ $? != 0 ] ; then
+      break
+    fi
+    pkill -9 make
+    pkill -9 xul
+    lim=$(( $lim - 1 ))
+done
+if [ $lim -eq 0 ] ; then
+echo Unable to reset gaia
+exit 1
+fi
+adb wait-for-device
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
+adb forward tcp:2828 tcp:2828
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh -x
+pip install b2gpopulate==0.10
+b2gpopulate --calls=100 --contacts=200 --messages=200 --music=100 --pictures=100 --videos=100
+OUT=$?
+adb logcat -d &gt; logcat.txt
+exit $OUT</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd eideticker/src/videocapture/videocapture/pointgrey/
+make</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
+      <project>orangutan</project>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>adb push orng /mnt/sdcard
+adb shell su -c dd if=/mnt/sdcard/orng of=/data/local/orng
+adb shell su -c chmod 700 /data/local/orng
+adb shell su -c rm /mnt/sdcard/orng</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
+      <project>ntpclient-android</project>
+      <filter></filter>
+      <target></target>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.tasks.Shell>
+      <command>adb push ntpclient /mnt/sdcard
+adb shell su -c dd if=/mnt/sdcard/ntpclient of=/data/local/ntpclient
+adb shell su -c chmod 700 /data/local/ntpclient
+adb shell su -c rm /mnt/sdcard/ntpclient</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd eideticker
+python src/mozbase/setup_development.py
+pip install -e src/templeton
+pip install -e src/eideticker
+pip install -e src/videocapture</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>pip install gaiatest
+gcli unlock
+gcli setsetting screen.brightness 1
+gcli connectwifi ${WIFI_OPTIONS} &quot;${WIFI_SSID}&quot;
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd eideticker
+
+PROPERTIES=eideticker.properties
+touch $PROPERTIES
+if [ -z &quot;$CAPTURE_AREA&quot; ]; then
+  ./bin/getdimensions.py --output-file=$PROPERTIES
+fi</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.88">
+      <info>
+        <propertiesFilePath>eideticker/eideticker.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>cd eideticker
+
+TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling&quot;
+
+for TEST in $TESTS; do
+  ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --no-sync-time b2g-nightly $TEST src/dashboard
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>logcat.txt, eideticker/captures/*.zip, eideticker/eideticker.properties</artifacts>
+      <latestOnly>false</latestOnly>
+      <allowEmptyArchive>false</allowEmptyArchive>
+    </hudson.tasks.ArtifactArchiver>
+    <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.2">
+      <reportTargets>
+        <htmlpublisher.HtmlPublisherTarget>
+          <reportName>HTML Report</reportName>
+          <reportDir>eideticker/src/dashboard</reportDir>
+          <reportFiles>index.html</reportFiles>
+          <keepAll>true</keepAll>
+          <wrapperName>htmlpublisher-wrapper.html</wrapperName>
+        </htmlpublisher.HtmlPublisherTarget>
+      </reportTargets>
+    </htmlpublisher.HtmlPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.18">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.12">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>120</timeoutMinutes>
+      </strategy>
+      <failBuild>false</failBuild>
+      <writingDescription>false</writingDescription>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.7"/>
+    <EnvInjectBuildWrapper plugin="envinject@1.88">
+      <info>
+        <propertiesContent>PATH=${WORKSPACE}/.env/bin:${ADB_PATH}:$PATH
+CAPTURE_DEVICE=pointgrey
+DEVICE_TYPE=b2g</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+  </buildWrappers>
+</project>
