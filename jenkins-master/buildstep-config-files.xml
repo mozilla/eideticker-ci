@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider plugin="managed-scripts@1.1">
+  <configs>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</id>
+        <name>Install Eideticker dependencies</name>
+        <comment>Install Eideticker dependencies</comment>
+        <content>#!/bin/bash -x
+cd eideticker
+python src/mozbase/setup_development.py
+pip install -e src/templeton
+pip install -e src/eideticker
+pip install -e src/videocapture</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>
+        <name>Get dimensions</name>
+        <comment>Get capture dimensions</comment>
+        <content>#!/bin/bash -x
+cd eideticker
+PROPERTIES=eideticker.properties
+touch $PROPERTIES
+if [ -z &quot;$CAPTURE_AREA&quot; ]; then
+  ./bin/getdimensions.py --output-file=$PROPERTIES
+fi</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</id>
+        <name>Install Orangutan</name>
+        <comment>Install Orangutan on the device</comment>
+        <content>#!/bin/bash -x
+adb push orng /mnt/sdcard
+adb shell su -c dd if=/mnt/sdcard/orng of=/data/local/orng
+adb shell su -c chmod 700 /data/local/orng
+adb shell su -c rm /mnt/sdcard/orng</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</id>
+        <name>Reset Gaia</name>
+        <comment>Flash Gaia to the device</comment>
+        <content>#!/bin/sh -x
+
+cd gaia
+export lim=5
+while [ $lim -gt 0 ] ; do
+    echo trying $lim
+    GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
+    sleep 60
+    ps | grep &quot;reset-gaia&quot; | grep -v grep
+    if [ $? != 0 ] ; then
+      break
+    fi
+    pkill -9 make
+    pkill -9 xul
+    lim=$(( $lim - 1 ))
+done
+if [ $lim -eq 0 ] ; then
+echo Unable to reset gaia
+exit 1
+fi
+adb wait-for-device
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
+adb forward tcp:2828 tcp:2828
+</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
+        <name>Create virtual environment</name>
+        <comment>Create virtual environment</comment>
+        <content>#!/bin/bash
+virtualenv .env</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394155685</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394155685</id>
+        <name>Populate content</name>
+        <comment>Push reference workload to the device</comment>
+        <content>#!/bin/sh -x
+pip install b2gpopulate==0.10
+b2gpopulate --calls=100 --contacts=200 --messages=200 --music=100 --pictures=100 --videos=100
+OUT=$?
+adb logcat -d &gt; logcat.txt
+exit $OUT</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
+        <name>Build PointGrey</name>
+        <comment>Build PointGrey capture library</comment>
+        <content>#!/bin/bash -x
+cd eideticker/src/videocapture/videocapture/pointgrey/
+make</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394589462</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394589462</id>
+        <name>Prepare device</name>
+        <comment>Prepare device for tests</comment>
+        <content>#!/bin/bash -x
+pip install gaiatest
+gcli unlock
+gcli setsetting screen.brightness 1
+gcli connectwifi ${WIFI_OPTIONS} &quot;${WIFI_SSID}&quot;
+</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</id>
+        <name>Install NTP client</name>
+        <comment>Install NTP client on the device</comment>
+        <content>#!/bin/bash -x
+adb push ntpclient /mnt/sdcard
+adb shell su -c dd if=/mnt/sdcard/ntpclient of=/data/local/ntpclient
+adb shell su -c chmod 700 /data/local/ntpclient
+adb shell su -c rm /mnt/sdcard/ntpclient</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</id>
+        <name>Run tests</name>
+        <comment>Run the tests and update the dashboard</comment>
+        <content>#!/bin/bash -x
+cd eideticker
+TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling&quot;
+for TEST in $TESTS; do
+  ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --no-sync-time b2g-nightly $TEST src/dashboard
+done</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</id>
+        <name>Flash Inari</name>
+        <comment>Flash an Inari device</comment>
+        <content>#!/bin/bash -x
+unzip -o b2g.zip
+cd b2g-distro
+./flash.sh
+adb wait-for-device
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
+</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+  </configs>
+</org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider>

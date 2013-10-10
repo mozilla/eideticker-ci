@@ -110,116 +110,56 @@
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.tasks.Shell>
-      <command>virtualenv .env</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>unzip -o b2g.zip
-cd b2g-distro
-./flash.sh
-adb wait-for-device
-adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
-</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>#!/bin/sh -x
-
-cd gaia
-export lim=5
-while [ $lim -gt 0 ] ; do
-    echo trying $lim
-    GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
-    sleep 60
-    ps | grep &quot;reset-gaia&quot; | grep -v grep
-    if [ $? != 0 ] ; then
-      break
-    fi
-    pkill -9 make
-    pkill -9 xul
-    lim=$(( $lim - 1 ))
-done
-if [ $lim -eq 0 ] ; then
-echo Unable to reset gaia
-exit 1
-fi
-adb wait-for-device
-adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
-adb forward tcp:2828 tcp:2828
-</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>#!/bin/sh -x
-pip install b2gpopulate==0.10
-b2gpopulate --calls=100 --contacts=200 --messages=200 --music=100 --pictures=100 --videos=100
-OUT=$?
-adb logcat -d &gt; logcat.txt
-exit $OUT</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>cd eideticker/src/videocapture/videocapture/pointgrey/
-make</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394155685</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
       <project>orangutan</project>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.tasks.Shell>
-      <command>adb push orng /mnt/sdcard
-adb shell su -c dd if=/mnt/sdcard/orng of=/data/local/orng
-adb shell su -c chmod 700 /data/local/orng
-adb shell su -c rm /mnt/sdcard/orng</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
       <project>ntpclient-android</project>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.tasks.Shell>
-      <command>adb push ntpclient /mnt/sdcard
-adb shell su -c dd if=/mnt/sdcard/ntpclient of=/data/local/ntpclient
-adb shell su -c chmod 700 /data/local/ntpclient
-adb shell su -c rm /mnt/sdcard/ntpclient</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>cd eideticker
-python src/mozbase/setup_development.py
-pip install -e src/templeton
-pip install -e src/eideticker
-pip install -e src/videocapture</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>pip install gaiatest
-gcli unlock
-gcli setsetting screen.brightness 1
-gcli connectwifi ${WIFI_OPTIONS} &quot;${WIFI_SSID}&quot;
-</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>cd eideticker
-
-PROPERTIES=eideticker.properties
-touch $PROPERTIES
-if [ -z &quot;$CAPTURE_AREA&quot; ]; then
-  ./bin/getdimensions.py --output-file=$PROPERTIES
-fi</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394589462</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <EnvInjectBuilder plugin="envinject@1.88">
       <info>
         <propertiesFilePath>eideticker/eideticker.properties</propertiesFilePath>
       </info>
     </EnvInjectBuilder>
-    <hudson.tasks.Shell>
-      <command>cd eideticker
-
-TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling&quot;
-
-for TEST in $TESTS; do
-  ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --no-sync-time b2g-nightly $TEST src/dashboard
-done</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
