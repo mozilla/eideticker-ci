@@ -80,6 +80,28 @@ adb forward tcp:2828 tcp:2828
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1382081846394</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1382081846394</id>
+        <name>Clear workspace</name>
+        <comment>Wipe out workspace</comment>
+        <content>#!/bin/bash
+
+#This is needed due to JENKINS-13444 and JENKINS-19717 in the Workspace Cleanup plugin.
+#Once these are resolved we can use the plugin to clear the workspace.
+
+rm -rf .env
+rm -rf b2g-distro
+rm -rf b2g.zip
+rm -rf logcat.txt
+rm -rf ntpclient
+rm -rf orng
+rm -rf eideticker/captures/*
+</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>

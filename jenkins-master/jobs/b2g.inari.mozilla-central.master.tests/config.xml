@@ -104,6 +104,9 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1382081846394</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
       <project>b2g.inari.mozilla-central.download</project>
       <filter></filter>
@@ -214,11 +217,6 @@
     </jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.18">
-      <deleteDirs>false</deleteDirs>
-      <cleanupParameter></cleanupParameter>
-      <externalDelete></externalDelete>
-    </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.12">
       <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
         <timeoutMinutes>120</timeoutMinutes>
