@@ -96,12 +96,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector">
-    <hudson.triggers.SCMTrigger>
-      <spec>H * * * *</spec>
-      <ignorePostCommitHooks>false</ignorePostCommitHooks>
-    </hudson.triggers.SCMTrigger>
-  </triggers>
+  <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
@@ -118,9 +113,6 @@
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</buildStepId>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394155685</buildStepId>
