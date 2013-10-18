@@ -46,3 +46,17 @@ do the following:
    "[URLTrigger]" and enter the username and password under "Basic Authentication"
 3. In the "Build Environment" section, enter the password under in "Job 
    passwords"
+
+### Publish dashboard over SSH
+
+In order to publish the dashboard over SSH your private key will need to be
+added to the configuration. The jobs are configured to push to a
+people.mozilla.org account. For this to work you will need to do the following:
+
+1. Open http://localhost:8080/configure via your web browser.
+2. In the section "Publish over SSH" locate the people.mozilla.org server and
+enter the username.
+3. Click "Advanced" and enter the appropriate username, passphrase, and key.
+
+You can also set these details globally, or change the name/hostname to publish
+to an alternate server.
