@@ -148,6 +148,7 @@ make</content>
         <content>#!/bin/bash -x
 pip install gaiatest
 gcli unlock
+gcli killapps
 gcli setsetting screen.brightness 1
 gcli connectwifi ${WIFI_OPTIONS} &quot;${WIFI_SSID}&quot;
 </content>
