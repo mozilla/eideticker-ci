@@ -158,9 +158,9 @@
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>logcat.txt, eideticker/captures/*.zip, eideticker/eideticker.properties</artifacts>
+      <artifacts>logcat.txt, eideticker/captures/*.zip, eideticker/eideticker.properties, dimensions.png</artifacts>
       <latestOnly>false</latestOnly>
-      <allowEmptyArchive>false</allowEmptyArchive>
+      <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.2">
       <reportTargets>

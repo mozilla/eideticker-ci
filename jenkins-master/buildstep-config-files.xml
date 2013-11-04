@@ -27,7 +27,7 @@ cd eideticker
 PROPERTIES=eideticker.properties
 touch $PROPERTIES
 if [ -z &quot;$CAPTURE_AREA&quot; ]; then
-  ./bin/getdimensions.py --output-file=$PROPERTIES
+  ./bin/getdimensions.py --output-file=$PROPERTIES --output-screenshot=dimensions.png
 fi</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
@@ -102,17 +102,6 @@ rm -rf eideticker/captures/*
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
-        <name>Create virtual environment</name>
-        <comment>Create virtual environment</comment>
-        <content>#!/bin/bash
-virtualenv .env</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394155685</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394155685</id>
@@ -128,14 +117,27 @@ exit $OUT</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
-        <name>Build PointGrey</name>
-        <comment>Build PointGrey capture library</comment>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
+        <name>Create virtual environment</name>
+        <comment>Create virtual environment</comment>
+        <content>#!/bin/bash
+virtualenv .env</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</id>
+        <name>Install NTP client</name>
+        <comment>Install NTP client on the device</comment>
         <content>#!/bin/bash -x
-cd eideticker/src/videocapture/videocapture/pointgrey/
-make</content>
+adb push ntpclient /mnt/sdcard
+adb shell su -c dd if=/mnt/sdcard/ntpclient of=/data/local/ntpclient
+adb shell su -c chmod 700 /data/local/ntpclient
+adb shell su -c rm /mnt/sdcard/ntpclient</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -156,16 +158,14 @@ gcli connectwifi ${WIFI_OPTIONS} &quot;${WIFI_SSID}&quot;
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</id>
-        <name>Install NTP client</name>
-        <comment>Install NTP client on the device</comment>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
+        <name>Build PointGrey</name>
+        <comment>Build PointGrey capture library</comment>
         <content>#!/bin/bash -x
-adb push ntpclient /mnt/sdcard
-adb shell su -c dd if=/mnt/sdcard/ntpclient of=/data/local/ntpclient
-adb shell su -c chmod 700 /data/local/ntpclient
-adb shell su -c rm /mnt/sdcard/ntpclient</content>
+cd eideticker/src/videocapture/videocapture/pointgrey/
+make</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
