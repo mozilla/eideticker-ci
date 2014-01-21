@@ -18,3 +18,4 @@ jobs/*/lastSuccessful
 jobs/*/nextBuildNumber
 
 hudson.scm.CVSSCM.xml
+queue.xml
