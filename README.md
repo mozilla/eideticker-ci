@@ -31,13 +31,9 @@ Open http://localhost:8080/configure via your web browser. In the section
 
 * `ADB_PATH` - path to Android Debug Bridge (ADB)
 * `NDK_PATH` - path to Android NDK
-* `WIFI_OPTIONS` - Optional arguments for connecting to an available WiFi network
 * `WIFI_SSID` - SSID for the WiFi network to connect to
-
-The `WIFI_OPTIONS` variable is used by the
-[Gaia Command Line Interface](https://github.com/davehunt/gcli)
-tool, and accepts the format:
-`[--security {WPA-PSK,WEP}] [--password PASSWORD]`
+* `WIFI_SECURITY` - Security type for the WiFi network (WEP or WPA-PSK)
+* `WIFI_PASSWORD` - Password for the WiFi network
 
 ### Credentials
 
@@ -54,14 +50,13 @@ do the following:
 
 ### Publish dashboard over SSH
 
-In order to publish the dashboard over SSH your private key will need to be
-added to the configuration. The jobs are configured to push to a
-people.mozilla.org account. For this to work you will need to do the following:
+In order to publish the dashboard over SSH a private key and server will need
+be added to the configuration. Open http://localhost:8080/configure via your
+web browser and locate the section "Publish over SSH".
 
-1. Open http://localhost:8080/configure via your web browser.
-2. In the section "Publish over SSH" locate the people.mozilla.org server and
-enter the username.
-3. Click "Advanced" and enter the appropriate username, passphrase, and key.
+Once the server has been configured, you will also need to configure the jobs.
+This is done by adding the 'Send build artifacts over SSH' action under the
+'Post-build Actions' section.
 
-You can also set these details globally, or change the name/hostname to publish
-to an alternate server.
+For additional help configuring this feature see the plugin's
+[documentation](https://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+SSH+Plugin#PublishOverSSHPlugin-Configure).
