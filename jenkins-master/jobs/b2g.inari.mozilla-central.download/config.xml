@@ -27,7 +27,7 @@ USERNAME=</propertiesContent>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector">
+  <triggers>
     <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.35">
       <spec>H * * * *</spec>
       <entries>
@@ -69,6 +69,7 @@ mv inari.zip b2g.zip</command>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
         <color>BLUE</color>
+        <completeBuild>true</completeBuild>
       </threshold>
     </hudson.tasks.BuildTrigger>
   </publishers>

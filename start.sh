@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-JENKINS_VERSION=1.509.3
+JENKINS_VERSION=1.532.1
 JENKINS_URL="http://mirrors.jenkins-ci.org/war-stable/$JENKINS_VERSION/jenkins.war"
-JENKINS_WAR=jenkins.war
+JENKINS_WAR=jenkins-$JENKINS_VERSION.war
 
 export JENKINS_HOME=$(dirname $BASH_SOURCE)/jenkins-master
 
@@ -15,6 +15,9 @@ for PROG in curl java; do
 done
 
 echo "Downloading Jenkins $JENKINS_VERSION from $JENKINS_URL"
-curl --location $JENKINS_URL -z $JENKINS_WAR -o $JENKINS_WAR
+curl --location $JENKINS_URL -z $JENKINS_WAR -o $JENKINS_WAR.part
+if [ -f $JENKINS_WAR.part ]; then
+  mv $JENKINS_WAR.part $JENKINS_WAR
+fi
 
 java -jar -Xms2g -Xmx2g -XX:MaxPermSize=512M -Xincgc $JENKINS_WAR

@@ -96,7 +96,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector"/>
+  <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1">
