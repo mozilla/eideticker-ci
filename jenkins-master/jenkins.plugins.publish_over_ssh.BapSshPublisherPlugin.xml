@@ -2,8 +2,8 @@
 <jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin_-Descriptor plugin="publish-over-ssh@1.10">
   <hostConfigurations>
     <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
-      <name>people.mozilla.org</name>
-      <hostname>people.mozilla.org</hostname>
+      <name></name>
+      <hostname></hostname>
       <username></username>
       <secretPassword></secretPassword>
       <remoteRootDir></remoteRootDir>
@@ -12,11 +12,11 @@
         <secretPassphrase></secretPassphrase>
         <key></key>
         <keyPath></keyPath>
-        <disableAllExec>false</disableAllExec>
+        <disableAllExec>true</disableAllExec>
       </commonConfig>
       <timeout>300000</timeout>
       <overrideKey>true</overrideKey>
-      <disableExec>true</disableExec>
+      <disableExec>false</disableExec>
       <keyInfo>
         <secretPassphrase></secretPassphrase>
         <key></key>

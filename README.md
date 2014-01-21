@@ -19,6 +19,11 @@ project's
 
 Once Jenkins has been fully started, you will have configure it.
 
+### Security
+
+You may want to enable security for your Jenkins instance. This can be done by
+visiting http://localhost:8080/configureSecurity
+
 ### Environment
 
 Open http://localhost:8080/configure via your web browser. In the section
