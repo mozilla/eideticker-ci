@@ -10,7 +10,7 @@
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <EnvInjectJobProperty plugin="envinject@1.88">
+    <EnvInjectJobProperty plugin="envinject@1.89">
       <info>
         <propertiesContent>URL=https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/inari.zip
 USERNAME=</propertiesContent>
@@ -28,7 +28,7 @@ USERNAME=</propertiesContent>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.35">
+    <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
@@ -74,19 +74,19 @@ mv inari.zip b2g.zip</command>
     </hudson.tasks.BuildTrigger>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.18">
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.19">
       <deleteDirs>false</deleteDirs>
       <cleanupParameter></cleanupParameter>
       <externalDelete></externalDelete>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.7"/>
-    <EnvInjectBuildWrapper plugin="envinject@1.88">
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.8"/>
+    <EnvInjectBuildWrapper plugin="envinject@1.89">
       <info>
         <propertiesContent>PATH=${WORKSPACE}/.env/bin:$PATH</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>
-    <EnvInjectPasswordWrapper plugin="envinject@1.88">
+    <EnvInjectPasswordWrapper plugin="envinject@1.89">
       <injectGlobalPasswords>false</injectGlobalPasswords>
       <passwordEntries>
         <EnvInjectPasswordEntry>
