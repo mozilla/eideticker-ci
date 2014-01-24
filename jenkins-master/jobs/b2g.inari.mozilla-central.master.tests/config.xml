@@ -161,7 +161,7 @@
     <EnvInjectBuildWrapper plugin="envinject@1.89">
       <info>
         <propertiesContent>PATH=${WORKSPACE}/.env/bin:${ADB_PATH}:$PATH
-VENV=${WORKSPACE}/.env/bin
+VENV=${WORKSPACE}/.env
 CAPTURE_DEVICE=pointgrey
 DEVICE_TYPE=b2g</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
