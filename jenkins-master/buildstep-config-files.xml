@@ -9,10 +9,7 @@
         <comment>Install Eideticker dependencies</comment>
         <content>#!/bin/bash -ex
 cd eideticker
-python src/mozbase/setup_development.py
-pip install -e src/templeton
-pip install -e src/eideticker
-pip install -e src/videocapture</content>
+./bootstrap.sh</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
