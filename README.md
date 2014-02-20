@@ -31,6 +31,7 @@ Open http://localhost:8080/configure via your web browser. In the section
 
 * `ADB_PATH` - path to Android Debug Bridge (ADB)
 * `NDK_PATH` - path to Android NDK
+* `NOTIFICATION_ADDRESS` - e-mail address to send build failure notifications
 * `WIFI_SSID` - SSID for the WiFi network to connect to
 * `WIFI_SECURITY` - Security type for the WiFi network (WEP or WPA-PSK)
 * `WIFI_PASSWORD` - Password for the WiFi network
