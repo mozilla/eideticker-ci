@@ -145,7 +145,7 @@ adb shell su -c rm /mnt/sdcard/ntpclient</content>
         <comment>Run the tests and update the dashboard</comment>
         <content>#!/bin/bash -ex
 cd eideticker
-TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling b2g-callog-scrolling&quot;
+TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling b2g-callog-scrolling b2g-marketplace-scrolling&quot;
 for TEST in $TESTS; do
 ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time b2g-nightly $TEST
 done</content>
