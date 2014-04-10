@@ -11,58 +11,29 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.8">
-      <projectUrl>https://github.com/mozilla-b2g/gaia/</projectUrl>
+      <projectUrl>https://github.com/mozilla/eideticker.git/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
-  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
-    <scms>
-      <hudson.plugins.git.GitSCM plugin="git@2.0.1">
-        <configVersion>2</configVersion>
-        <userRemoteConfigs>
-          <hudson.plugins.git.UserRemoteConfig>
-            <url>http://git.mozilla.org/releases/gaia.git</url>
-          </hudson.plugins.git.UserRemoteConfig>
-        </userRemoteConfigs>
-        <branches>
-          <hudson.plugins.git.BranchSpec>
-            <name>master</name>
-          </hudson.plugins.git.BranchSpec>
-        </branches>
-        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-        <submoduleCfg class="list"/>
-        <extensions>
-          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-            <relativeTargetDir>gaia</relativeTargetDir>
-          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-          <hudson.plugins.git.extensions.impl.PerBuildTag/>
-        </extensions>
-      </hudson.plugins.git.GitSCM>
-      <hudson.plugins.git.GitSCM plugin="git@2.0.1">
-        <configVersion>2</configVersion>
-        <userRemoteConfigs>
-          <hudson.plugins.git.UserRemoteConfig>
-            <url>https://github.com/mozilla/eideticker.git</url>
-          </hudson.plugins.git.UserRemoteConfig>
-        </userRemoteConfigs>
-        <branches>
-          <hudson.plugins.git.BranchSpec>
-            <name>master</name>
-          </hudson.plugins.git.BranchSpec>
-        </branches>
-        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-        <submoduleCfg class="list"/>
-        <extensions>
-          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-            <relativeTargetDir>eideticker</relativeTargetDir>
-          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-          <hudson.plugins.git.extensions.impl.PerBuildTag/>
-          <hudson.plugins.git.extensions.impl.SubmoduleOption>
-            <disableSubmodules>false</disableSubmodules>
-            <recursiveSubmodules>true</recursiveSubmodules>
-          </hudson.plugins.git.extensions.impl.SubmoduleOption>
-        </extensions>
-      </hudson.plugins.git.GitSCM>
-    </scms>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/mozilla/eideticker.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <reference></reference>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+    </extensions>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -123,16 +94,19 @@
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <EnvInjectBuilder plugin="envinject@1.89">
       <info>
-        <propertiesFilePath>eideticker/eideticker.properties</propertiesFilePath>
+        <propertiesFilePath>eideticker.properties</propertiesFilePath>
       </info>
     </EnvInjectBuilder>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397135367627</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>logcat.txt, eideticker/captures/*.zip, eideticker/eideticker.properties, dimensions.png</artifacts>
+      <artifacts>logcat.txt, captures/*.zip, eideticker.properties, dimensions.png, dashboard.zip</artifacts>
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
@@ -140,7 +114,7 @@
       <reportTargets>
         <htmlpublisher.HtmlPublisherTarget>
           <reportName>HTML Report</reportName>
-          <reportDir>eideticker/src/dashboard</reportDir>
+          <reportDir>src/dashboard</reportDir>
           <reportFiles>index.html</reportFiles>
           <keepAll>true</keepAll>
           <allowMissing>false</allowMissing>

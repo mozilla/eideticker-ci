@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider plugin="managed-scripts@1.1">
+<org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider plugin="managed-scripts@1.1.1">
   <configs>
     <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</string>
@@ -8,8 +8,33 @@
         <name>Install Eideticker dependencies</name>
         <comment>Install Eideticker dependencies</comment>
         <content>#!/bin/bash -ex
-cd eideticker
 ./bootstrap.sh</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397135367627</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397135367627</id>
+        <name>Sync dashboard</name>
+        <comment>Update the remote dashboard</comment>
+        <content>#!/bin/bash -ex
+./bin/sync-dashboard.sh</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>
+        <name>Get dimensions</name>
+        <comment>Get capture dimensions</comment>
+        <content>#!/bin/bash -ex
+PROPERTIES=eideticker.properties
+touch $PROPERTIES
+if [ -z &quot;$CAPTURE_AREA&quot; ]; then
+  ./bin/getdimensions.py --output-file=$PROPERTIES --output-screenshot=dimensions.png --wifi-settings=${WORKSPACE}/wifi.json
+fi</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -37,47 +62,8 @@ adb shell su -c rm /mnt/sdcard/orng</content>
 cd gaia
 GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
 adb wait-for-device
-adb shell 'while [ ""`getprop sys.boot_completed` != "1" ] ; do sleep 1; done'
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
 adb forward tcp:2828 tcp:2828</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
-        <name>Create virtual environment</name>
-        <comment>Create virtual environment</comment>
-        <content>#!/bin/bash -ex
-virtualenv .env</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
-        <name>Build PointGrey</name>
-        <comment>Build PointGrey capture library</comment>
-        <content>#!/bin/bash -ex
-cd eideticker/src/videocapture/videocapture/pointgrey/
-make</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>
-        <name>Get dimensions</name>
-        <comment>Get capture dimensions</comment>
-        <content>#!/bin/bash -ex
-cd eideticker
-PROPERTIES=eideticker.properties
-touch $PROPERTIES
-if [ -z &quot;$CAPTURE_AREA&quot; ]; then
-  ./bin/getdimensions.py --output-file=$PROPERTIES --output-screenshot=dimensions.png --wifi-settings=${WORKSPACE}/wifi.json
-fi</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -98,7 +84,7 @@ rm -rf b2g.zip
 rm -rf logcat.txt
 rm -rf ntpclient
 rm -rf orng
-rm -rf eideticker/captures/*</content>
+rm -rf captures/*</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -109,7 +95,7 @@ rm -rf eideticker/captures/*</content>
         <name>Create WiFi settings</name>
         <comment>Create a WiFi settings file</comment>
         <content>#!/bin/bash -ex
-./eideticker/bin/create-wifi-settings-file.py &quot;$1&quot; $2 $3 &gt; wifi.json</content>
+./bin/create-wifi-settings-file.py &quot;$1&quot; $2 $3 &gt; wifi.json</content>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>SSID</name>
@@ -121,6 +107,29 @@ rm -rf eideticker/captures/*</content>
             <name>PASSWORD</name>
           </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
         </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
+        <name>Create virtual environment</name>
+        <comment>Create virtual environment</comment>
+        <content>#!/bin/bash -ex
+virtualenv .env</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
+        <name>Build PointGrey</name>
+        <comment>Build PointGrey capture library</comment>
+        <content>#!/bin/bash -ex
+cd src/videocapture/videocapture/pointgrey/
+make</content>
+        <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
@@ -144,11 +153,11 @@ adb shell su -c rm /mnt/sdcard/ntpclient</content>
         <name>Run tests</name>
         <comment>Run the tests and update the dashboard</comment>
         <content>#!/bin/bash -ex
-cd eideticker
 TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling b2g-callog-scrolling b2g-marketplace-scrolling&quot;
 for TEST in $TESTS; do
 ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time b2g-nightly $TEST
-done</content>
+done
+zip -ur ${WORKSPACE}/dashboard.zip ${WORKSPACE}/src/dashboard</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>

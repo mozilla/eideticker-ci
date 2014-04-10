@@ -54,10 +54,16 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
           </default>
-          <int>8</int>
+          <int>11</int>
           <string>ADB_PATH</string>
+          <string></string>
+          <string>DASHBOARD_REMOTE_PATH</string>
+          <string></string>
+          <string>DASHBOARD_SERVER</string>
+          <string></string>
+          <string>DASHBOARD_USERNAME</string>
           <string></string>
           <string>NDK_PATH</string>
           <string></string>
