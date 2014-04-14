@@ -64,7 +64,7 @@ mv inari.zip b2g.zip</command>
       <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.BuildTrigger>
-      <childProjects>b2g.inari.mozilla-central.master.tests</childProjects>
+      <childProjects>b2g.inari.mozilla-central.tests</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

@@ -13,17 +13,6 @@
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397135367627</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397135367627</id>
-        <name>Sync dashboard</name>
-        <comment>Update the remote dashboard</comment>
-        <content>#!/bin/bash -ex
-./bin/sync-dashboard.sh</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>
@@ -155,7 +144,8 @@ adb shell su -c rm /mnt/sdcard/ntpclient</content>
         <content>#!/bin/bash -ex
 TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling b2g-callog-scrolling b2g-marketplace-scrolling&quot;
 for TEST in $TESTS; do
-./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time b2g-nightly $TEST
+  ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time b2g-nightly $TEST
+  DASHBOARD_LOCAL_PATH=${WORKSPACE}/src/dashboard/ ./bin/sync-dashboard.sh
 done
 zip -ur ${WORKSPACE}/dashboard.zip ${WORKSPACE}/src/dashboard</content>
         <args/>

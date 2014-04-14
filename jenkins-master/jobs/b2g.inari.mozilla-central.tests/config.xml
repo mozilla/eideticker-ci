@@ -100,9 +100,6 @@
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397135367627</buildStepId>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
@@ -131,7 +128,7 @@
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.12.2">
       <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes>120</timeoutMinutes>
+        <timeoutMinutes>150</timeoutMinutes>
       </strategy>
       <failBuild>false</failBuild>
       <writingDescription>false</writingDescription>
