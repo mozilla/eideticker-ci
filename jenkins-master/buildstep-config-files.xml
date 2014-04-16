@@ -13,21 +13,6 @@
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>
-        <name>Get dimensions</name>
-        <comment>Get capture dimensions</comment>
-        <content>#!/bin/bash -ex
-PROPERTIES=eideticker.properties
-touch $PROPERTIES
-if [ -z &quot;$CAPTURE_AREA&quot; ]; then
-  ./bin/getdimensions.py --output-file=$PROPERTIES --output-screenshot=dimensions.png --wifi-settings=${WORKSPACE}/wifi.json
-fi</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</id>
@@ -42,6 +27,37 @@ adb shell su -c rm /mnt/sdcard/orng</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</id>
+        <name>Download B2G</name>
+        <comment>Download the B2G build from the specified location</comment>
+        <content>#!/bin/bash -ex
+wget -r -l1 -nd -np -A.en-US.android-arm.tar.gz --user=${B2G_BUILD_USERNAME} --password=${B2G_BUILD_PASSWORD} $1
+FILES=&quot;gaia.zip sources.xml&quot;
+for FILE in ${FILES}; do
+  wget --user=${B2G_BUILD_USERNAME} --password=${B2G_BUILD_PASSWORD} $1/${FILE}
+done
+mv b2g-*.en-US.android-arm.tar.gz b2g.en-US.android-arm.tar.gz</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>URL</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397495425159</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397495425159</id>
+        <name>Forward Marionette port via ADB</name>
+        <comment>Forward socket connections for connecting to Marionette</comment>
+        <content>#!/bin/bash -ex
+adb forward tcp:2828 tcp:2828</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</id>
@@ -51,29 +67,56 @@ adb shell su -c rm /mnt/sdcard/orng</content>
 cd gaia
 GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
 adb wait-for-device
-adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
-adb forward tcp:2828 tcp:2828</content>
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1382081846394</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1382081846394</id>
-        <name>Clear workspace</name>
-        <comment>Wipe out workspace</comment>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
+        <name>Create virtual environment</name>
+        <comment>Create virtual environment</comment>
         <content>#!/bin/bash -ex
-
-#This is needed due to JENKINS-13444 and JENKINS-19717 in the Workspace Cleanup plugin.
-#Once these are resolved we can use the plugin to clear the workspace.
-
-rm -rf .env
-rm -rf b2g-distro
-rm -rf b2g.zip
-rm -rf logcat.txt
-rm -rf ntpclient
-rm -rf orng
-rm -rf captures/*</content>
+virtualenv .env</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397557096176</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397557096176</id>
+        <name>Fetch test results</name>
+        <comment>Copy the historical test results from the remote dashboard</comment>
+        <content>#!/bin/bash -ex
+./bin/copy-dashboard.py --skip-metadata ${DASHBOARD_URL} ${DASHBOARD_LOCAL_PATH}</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
+        <name>Build PointGrey</name>
+        <comment>Build PointGrey capture library</comment>
+        <content>#!/bin/bash -ex
+cd src/videocapture/videocapture/pointgrey/
+make</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>
+        <name>Get dimensions</name>
+        <comment>Get capture dimensions</comment>
+        <content>#!/bin/bash -ex
+PROPERTIES=eideticker.properties
+touch $PROPERTIES
+if [ -z &quot;$CAPTURE_AREA&quot; ]; then
+  ./bin/getdimensions.py --output-file=$PROPERTIES --output-screenshot=dimensions.png --wifi-settings=${WORKSPACE}/wifi.json
+fi</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -99,29 +142,6 @@ rm -rf captures/*</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</id>
-        <name>Create virtual environment</name>
-        <comment>Create virtual environment</comment>
-        <content>#!/bin/bash -ex
-virtualenv .env</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
-        <name>Build PointGrey</name>
-        <comment>Build PointGrey capture library</comment>
-        <content>#!/bin/bash -ex
-cd src/videocapture/videocapture/pointgrey/
-make</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</id>
@@ -143,11 +163,11 @@ adb shell su -c rm /mnt/sdcard/ntpclient</content>
         <comment>Run the tests and update the dashboard</comment>
         <content>#!/bin/bash -ex
 TESTS=&quot;b2g-contacts-startup b2g-messages-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling b2g-callog-scrolling b2g-marketplace-scrolling&quot;
-for TEST in $TESTS; do
-  ./bin/update-dashboard.py --sources-xml=${WORKSPACE}/b2g-distro/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time b2g-nightly $TEST
-  DASHBOARD_LOCAL_PATH=${WORKSPACE}/src/dashboard/ ./bin/sync-dashboard.sh
+for TEST in ${TESTS}; do
+./bin/update-dashboard.py --output-dir=${DASHBOARD_LOCAL_PATH} --sources-xml=${WORKSPACE}/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time b2g-nightly ${TEST}
+  ./bin/sync-dashboard.sh
 done
-zip -ur ${WORKSPACE}/dashboard.zip ${WORKSPACE}/src/dashboard</content>
+zip -ur ${WORKSPACE}/dashboard.zip ${DASHBOARD_LOCAL_PATH}</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -155,15 +175,143 @@ zip -ur ${WORKSPACE}/dashboard.zip ${WORKSPACE}/src/dashboard</content>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</id>
-        <name>Flash Inari</name>
-        <comment>Flash an Inari device</comment>
-        <content>#!/bin/bash -ex
-unzip -o b2g.zip
-cd b2g-distro
-./flash.sh
-adb wait-for-device
-adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;
-adb forward tcp:2828 tcp:2828</content>
+        <name>Flash B2G (non-RIL)</name>
+        <comment>Flash a B2G device with a non-RIL build</comment>
+        <content>#!/bin/bash -e
+
+# This script is maintained at:
+# https://gist.github.com/davehunt/7646076
+
+# adb root, then remount and stop b2g
+function adb_root_remount() {
+    echo -e &quot;\n\033[1mRoot and remount\033[0m&quot;
+    adb root
+    adb wait-for-device
+    adb remount
+    adb wait-for-device
+    adb shell mount -o remount,rw /system
+    adb wait-for-device
+    stop_b2g
+}
+
+# adb sync then reboot
+function adb_reboot() {
+    echo -e &quot;\n\033[1mRebooting\033[0m&quot;
+    adb shell sync
+    adb shell reboot
+    adb wait-for-device
+    echo &quot;Done&quot;
+}
+
+# stop b2g
+function stop_b2g() {
+    echo &quot;Stopping b2g&quot;
+    adb shell stop b2g
+    adb wait-for-device
+
+    ATTEMPTS=5
+    COUNTER=0
+    RESULT=0
+    while [ $COUNTER -lt $ATTEMPTS ] &amp;&amp; [ $RESULT == 0 ]; do
+        adb shell lsof | grep b2g &gt; /dev/null &amp;&amp; RESULT=0 || RESULT=1
+        let COUNTER=COUNTER+1
+    done
+    if [ $COUNTER == $ATTEMPTS ] &amp;&amp; [ $RESULT == 0 ]; then
+        echo &quot;The b2g process still had files open after $ATTEMPTS attempts&quot;
+        adb_reboot
+        adb_root_remount
+    fi
+}
+
+# remove files from the device
+function remove() {
+    echo &quot;Removing $1&quot;
+
+    ATTEMPTS=5
+    COUNTER=0
+    RESULT=0
+    while [ $COUNTER -lt $ATTEMPTS ] &amp;&amp; [ $RESULT == 0 ]; do
+        adb shell rm -r $1 | grep &quot;No such file&quot; &gt; /dev/null &amp;&amp; RESULT=1 || RESULT=0
+        let COUNTER=COUNTER+1
+    done
+    if [ $COUNTER == $ATTEMPTS ] &amp;&amp; [ $RESULT == 0 ]; then
+        echo &quot;Failed to remove $1 after $ATTEMPTS attempts&quot;
+    fi
+}
+
+# clean cache, gaia (webapps) and profiles
+function clean() {
+    show_free_space
+    echo -e &quot;\n\033[1mCleaning\033[0m&quot;
+    remove /cache/*
+    remove /data/b2g/*
+    remove /data/local/storage/persistent/*
+    remove /data/local/svoperapps
+    remove /data/local/webapps
+    remove /data/local/user.js
+    remove /data/local/permissions.sqlite*
+    remove /data/local/OfflineCache
+    remove /data/local/indexedDB
+    remove /data/local/debug_info_trigger
+    remove /system/b2g/webapps
+    remove /data/misc/wifi/*
+    # delete battery charging status
+    remove /system/bin/battery_charging
+    show_free_space
+}
+
+# push gaia into device
+function push_gaia() {
+    echo -e &quot;\n\033[1mPushing Gaia\033[0m&quot;
+    GAIA_DIR=shallowflashgaia_temp
+    rm -rf $GAIA_DIR &amp;&amp; mkdir $GAIA_DIR
+    unzip -q gaia.zip -d $GAIA_DIR
+    cat $GAIA_DIR/gaia/profile/user.js | sed -e &quot;s/user_pref/pref/&quot; &gt; $GAIA_DIR/user.js
+    adb shell mkdir -p /system/b2g/defaults/pref
+    adb push $GAIA_DIR/gaia/profile/webapps /system/b2g/webapps
+    adb push $GAIA_DIR/user.js /system/b2g/defaults/pref
+    adb push $GAIA_DIR/gaia/profile/settings.json /system/b2g/defaults
+}
+
+# push gaia into device
+function push_gecko() {
+    echo -e &quot;\n\033[1mPushing Gecko\033[0m&quot;
+    GECKO_DIR=shallowflashgecko_temp
+    rm -rf $GECKO_DIR &amp;&amp; mkdir $GECKO_DIR
+    tar -xzf b2g.en-US.android-arm.tar.gz -C $GECKO_DIR
+    adb push $GECKO_DIR/b2g /system/b2g
+    # uninstall old ril
+    adb shell rm -r /system/b2g/distribution/bundles/libqc_b2g_location
+    adb shell rm -r /system/b2g/distribution/bundles/libqc_b2g_ril
+    # delete incompatible extensions
+    adb shell rm -r /system/b2g/distribution/bundles/liblge_b2g_extension
+}
+
+function show_free_space() {
+    echo -e &quot;\n\033[1mShowing free space\033[0m&quot;
+    adb shell df
+}
+
+function show_version() {
+    echo -e &quot;\n\033[1mShowing version details\033[0m&quot;
+    VIRTUALENV=mozversion_temp
+    virtualenv -q $VIRTUALENV
+    source $VIRTUALENV/bin/activate
+    pip install mozversion -q
+    set +e
+    mozversion --sources=sources.xml
+    set -e
+    deactivate
+}
+
+adb_root_remount
+clean
+push_gaia
+push_gecko
+adb_reboot
+sleep 60
+show_version
+echo &quot;&quot;</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>

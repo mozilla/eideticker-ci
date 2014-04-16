@@ -9,19 +9,7 @@
     <artifactNumToKeep>-1</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <EnvInjectJobProperty plugin="envinject@1.89">
-      <info>
-        <propertiesContent>URL=https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/inari.zip
-USERNAME=</propertiesContent>
-        <loadFilesFromMaster>false</loadFilesFromMaster>
-      </info>
-      <on>true</on>
-      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
-      <keepBuildVariables>true</keepBuildVariables>
-      <contributors/>
-    </EnvInjectJobProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -32,7 +20,7 @@ USERNAME=</propertiesContent>
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/inari.zip</url>
+          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/sources.xml</url>
           <username></username>
           <password></password>
           <proxyActivated>false</proxyActivated>
@@ -50,16 +38,16 @@ USERNAME=</propertiesContent>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command>virtualenv .env
-pip install mozdownload==1.9
-mozdownload --url=${URL} --username=${USERNAME} --password=${PASSWORD}
-mv inari.zip b2g.zip</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</buildStepId>
+      <buildStepArgs>
+        <string>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest</string>
+      </buildStepArgs>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>b2g.zip</artifacts>
+      <artifacts>gaia.zip, b2g.en-US.android-arm.tar.gz, sources.xml</artifacts>
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
@@ -91,14 +79,6 @@ mv inari.zip b2g.zip</command>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>
-    <EnvInjectPasswordWrapper plugin="envinject@1.89">
-      <injectGlobalPasswords>false</injectGlobalPasswords>
-      <passwordEntries>
-        <EnvInjectPasswordEntry>
-          <name>PASSWORD</name>
-          <value></value>
-        </EnvInjectPasswordEntry>
-      </passwordEntries>
-    </EnvInjectPasswordWrapper>
+    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper/>
   </buildWrappers>
 </project>

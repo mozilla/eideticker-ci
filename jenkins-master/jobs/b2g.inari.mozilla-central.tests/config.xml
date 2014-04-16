@@ -33,18 +33,17 @@
         <shallow>true</shallow>
         <reference></reference>
       </hudson.plugins.git.extensions.impl.CloneOption>
+      <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <canRoam>true</canRoam>
+  <assignedNode>inari</assignedNode>
+  <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1382081846394</buildStepId>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.28">
       <project>b2g.inari.mozilla-central.download</project>
       <filter></filter>
@@ -90,6 +89,9 @@
       </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397495425159</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <EnvInjectBuilder plugin="envinject@1.89">
@@ -97,6 +99,9 @@
         <propertiesFilePath>eideticker.properties</propertiesFilePath>
       </info>
     </EnvInjectBuilder>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397557096176</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
@@ -134,6 +139,9 @@
       <writingDescription>false</writingDescription>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.8"/>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.3.1">
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
     <EnvInjectBuildWrapper plugin="envinject@1.89">
       <info>
         <propertiesContent>PATH=${WORKSPACE}/.env/bin:${ADB_PATH}:$PATH
@@ -143,5 +151,6 @@ DEVICE_TYPE=b2g</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>
+    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper/>
   </buildWrappers>
 </project>

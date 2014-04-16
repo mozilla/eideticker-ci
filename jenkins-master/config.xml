@@ -54,15 +54,21 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>11</int>
+          <int>13</int>
           <string>ADB_PATH</string>
           <string></string>
+          <string>B2G_BUILD_USERNAME</string>
+          <string></string>
+          <string>DASHBOARD_LOCAL_PATH</string>
+          <string>${WORKSPACE}/dashboard/</string>
           <string>DASHBOARD_REMOTE_PATH</string>
           <string></string>
           <string>DASHBOARD_SERVER</string>
           <string></string>
+          <string>DASHBOARD_URL</string>
+          <string>http://eideticker.mozilla.org/b2g/</string>
           <string>DASHBOARD_USERNAME</string>
           <string></string>
           <string>NDK_PATH</string>
@@ -73,8 +79,6 @@
           <string>${HOME}/.pip_download_cache</string>
           <string>PIP_USE_MIRRORS</string>
           <string>true</string>
-          <string>WIFI_PASSWORD</string>
-          <string></string>
           <string>WIFI_SECURITY</string>
           <string></string>
           <string>WIFI_SSID</string>

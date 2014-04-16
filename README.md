@@ -30,34 +30,25 @@ Open http://localhost:8080/configure via your web browser. In the section
 "Global properties" update the following entries:
 
 * `ADB_PATH` - path to Android Debug Bridge (ADB)
+* `B2G_BUILD_USERNAME` - username for accessing B2G builds
+* `DASHBOARD_REMOTE_PATH` - path to use on the remote dashboard server
+* `DASHBOARD_SERVER` - dashboard server IP or hostname
+* `DASHBOARD_URL` - address of the remote dashboard
+* `DASHBOARD_USERNAME` - username for the remote dashboard server
 * `NDK_PATH` - path to Android NDK
 * `NOTIFICATION_ADDRESS` - e-mail address to send build failure notifications
 * `WIFI_SSID` - SSID for the WiFi network to connect to
-* `WIFI_SECURITY` - Security type for the WiFi network (WEP or WPA-PSK)
-* `WIFI_PASSWORD` - Password for the WiFi network
+* `WIFI_SECURITY` - security type for the WiFi network (WEP or WPA-PSK)
 
 ### Credentials
 
+Open http://localhost:8080/configure via your web browser. In the section
+"Mask Passwords - Global name/password pairs" add the following entries:
+
+* `B2G_BUILD_PASSWORD` - password for accessing B2G builds
+* `WIFI_PASSWORD` - password for the WiFi network
+
 For any download jobs to succeed a username and password must be added to the
-job's configuration. Open each download job and click "Configuration" then
-do the following:
-
-1. Enter the username in the "Properties Content" area in the format
-   `USERNAME=<username>`
-2. In the "Build Triggers" section, click the "Advanced" button under
-   "[URLTrigger]" and enter the username and password under "Basic Authentication"
-3. In the "Build Environment" section, enter the password under in "Job 
-   passwords"
-
-### Publish dashboard over SSH
-
-In order to publish the dashboard over SSH a private key and server will need
-be added to the configuration. Open http://localhost:8080/configure via your
-web browser and locate the section "Publish over SSH".
-
-Once the server has been configured, you will also need to configure the jobs.
-This is done by adding the 'Send build artifacts over SSH' action under the
-'Post-build Actions' section.
-
-For additional help configuring this feature see the plugin's
-[documentation](https://wiki.jenkins-ci.org/display/JENKINS/Publish+Over+SSH+Plugin#PublishOverSSHPlugin-Configure).
+job's configuration. Open each download job and click "Configuration". In the
+"Build Triggers" section, click the "Advanced" button under "[URLTrigger]" and
+enter the username and password under "Basic Authentication"
