@@ -21,8 +21,6 @@
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
           <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/nightly/mozilla-central-inari-eng/latest/sources.xml</url>
-          <username></username>
-          <password></password>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -67,12 +65,12 @@
     </hudson.tasks.Mailer>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.19">
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.20">
       <deleteDirs>false</deleteDirs>
       <cleanupParameter></cleanupParameter>
       <externalDelete></externalDelete>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.8"/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.11"/>
     <EnvInjectBuildWrapper plugin="envinject@1.89">
       <info>
         <propertiesContent>PATH=${WORKSPACE}/.env/bin:$PATH</propertiesContent>
