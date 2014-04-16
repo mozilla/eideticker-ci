@@ -135,8 +135,8 @@
   </publishers>
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.13">
-      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes>150</timeoutMinutes>
+      <strategy class="hudson.plugins.build_timeout.impl.NoActivityTimeOutStrategy">
+        <timeout>300000</timeout>
       </strategy>
       <operationList>
         <hudson.plugins.build__timeout.operations.AbortOperation/>
