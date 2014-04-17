@@ -38,7 +38,9 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>3</int>
+          <int>4</int>
+          <string>CAMERA_ID</string>
+          <string></string>
           <string>CAPTURE_AREA</string>
           <string></string>
           <string>DEVICE_ID</string>
