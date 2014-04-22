@@ -304,6 +304,7 @@ function show_version() {
     deactivate
 }
 
+adb_reboot
 adb_root_remount
 clean
 push_gaia
