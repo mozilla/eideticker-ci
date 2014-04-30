@@ -38,9 +38,7 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>4</int>
-          <string>CAMERA_ID</string>
-          <string></string>
+          <int>3</int>
           <string>CAPTURE_AREA</string>
           <string></string>
           <string>DEVICE_ID</string>
@@ -57,7 +55,7 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
           <int>13</int>
           <string>ADB_PATH</string>
