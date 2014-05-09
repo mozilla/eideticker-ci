@@ -89,7 +89,7 @@ virtualenv .env</content>
         <name>Fetch test results</name>
         <comment>Copy the historical test results from the remote dashboard</comment>
         <content>#!/bin/bash -ex
-./bin/copy-dashboard.py --skip-metadata ${DASHBOARD_URL} ${DASHBOARD_LOCAL_PATH}</content>
+./bin/copy-dashboard.py --device-id ${DEVICE_ID} --skip-metadata ${DASHBOARD_URL} ${DASHBOARD_LOCAL_PATH}</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
