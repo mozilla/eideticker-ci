@@ -27,23 +27,17 @@ adb shell su -c rm /mnt/sdcard/orng</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</id>
-        <name>Download B2G</name>
-        <comment>Download the B2G build from the specified location</comment>
-        <content>#!/bin/bash -ex
-wget -r -l1 -nd -np -A.en-US.android-arm.tar.gz --user=${B2G_BUILD_USERNAME} --password=${B2G_BUILD_PASSWORD} $1
-FILES=&quot;gaia.zip sources.xml&quot;
-for FILE in ${FILES}; do
-  wget --user=${B2G_BUILD_USERNAME} --password=${B2G_BUILD_PASSWORD} $1/${FILE}
-done
-mv b2g-*.en-US.android-arm.tar.gz b2g.en-US.android-arm.tar.gz</content>
-        <args>
-          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
-            <name>URL</name>
-          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
-        </args>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</id>
+        <name>Reset Gaia</name>
+        <comment>Flash Gaia to the device</comment>
+        <content>#!/bin/sh -ex
+cd gaia
+GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
+adb wait-for-device
+adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;</content>
+        <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
@@ -58,17 +52,27 @@ adb forward tcp:2828 tcp:2828</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393646026</id>
-        <name>Reset Gaia</name>
-        <comment>Flash Gaia to the device</comment>
-        <content>#!/bin/sh -ex
-cd gaia
-GAIA_OPTIMIZE=1 NOFTU=1 make reset-gaia
-adb wait-for-device
-adb shell &apos;while [ &quot;&quot;`getprop sys.boot_completed` != &quot;1&quot; ] ; do sleep 1; done&apos;</content>
-        <args/>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</id>
+        <name>Download B2G</name>
+        <comment>Download the B2G build from the specified location</comment>
+        <content>#!/bin/bash -ex
+wget -r -l1 -nd -np -A.en-US.android-arm.tar.gz --user=${B2G_BUILD_USERNAME} --password=${B2G_BUILD_PASSWORD} $1
+FILES=&quot;gaia.zip sources.xml $2.zip&quot;
+for FILE in ${FILES}; do
+  wget --user=${B2G_BUILD_USERNAME} --password=${B2G_BUILD_PASSWORD} $1/${FILE}
+done
+mv b2g-*.en-US.android-arm.tar.gz b2g.en-US.android-arm.tar.gz
+mv $2.zip device.zip</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>URL</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>DEVICE</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
@@ -142,6 +146,60 @@ fi</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1399897611295</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1399897611295</id>
+        <name>Full flash B2G</name>
+        <comment>Perform a full flash on a B2G device</comment>
+        <content>#!/bin/bash -e
+
+# This script is maintained at:
+# https://gist.github.com/davehunt/f390693d59d285ea22da
+
+# Preconditions:
+# 1. device.zip and sources.xml must be present for this script to work
+# 2. the device also has to be oem unlocked so we have fastboot mode
+
+function show_free_space() {
+    echo -e &quot;\n\033[1mShowing free space\033[0m&quot;
+    adb shell df
+}
+
+function show_version() {
+    echo -e &quot;\n\033[1mShowing version details\033[0m&quot;
+    VIRTUALENV=mozversion_temp
+    virtualenv -q $VIRTUALENV
+    source $VIRTUALENV/bin/activate
+    pip install mozversion -q
+    set +e
+    mozversion --sources=sources.xml
+    set -e
+    deactivate
+}
+
+function flash() {
+    echo -e &quot;\n\033[1mFlashing\033[0m&quot;
+    B2G_DIR=flash_temp
+    rm -rf $B2G_DIR &amp;&amp; mkdir $B2G_DIR
+    unzip -q device.zip -d $B2G_DIR
+    adb reboot bootloader &amp;&amp; sleep 10
+    fastboot flash boot $B2G_DIR/b2g-distro/out/target/product/*/boot.img
+    fastboot flash system $B2G_DIR/b2g-distro/out/target/product/*/system.img
+    fastboot flash userdata $B2G_DIR/b2g-distro/out/target/product/*/userdata.img
+    fastboot flash recovery $B2G_DIR/b2g-distro/out/target/product/*/recovery.img
+    fastboot reboot
+}
+
+show_free_space
+flash
+sleep 60
+show_free_space
+show_version
+echo &quot;&quot;</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</id>
@@ -175,8 +233,8 @@ zip -ur ${WORKSPACE}/dashboard.zip ${DASHBOARD_LOCAL_PATH}</content>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</id>
-        <name>Flash B2G (non-RIL)</name>
-        <comment>Flash a B2G device with a non-RIL build</comment>
+        <name>Shallow flash B2G (non-RIL)</name>
+        <comment>Perform a shallow flash on a B2G device with a non-RIL build</comment>
         <content>#!/bin/bash -e
 
 # This script is maintained at:
@@ -271,9 +329,10 @@ function push_gaia() {
     adb push $GAIA_DIR/gaia/profile/webapps /system/b2g/webapps
     adb push $GAIA_DIR/user.js /system/b2g/defaults/pref
     adb push $GAIA_DIR/gaia/profile/settings.json /system/b2g/defaults
+    show_free_space
 }
 
-# push gaia into device
+# push gecko into device
 function push_gecko() {
     echo -e &quot;\n\033[1mPushing Gecko\033[0m&quot;
     GECKO_DIR=shallowflashgecko_temp
@@ -285,6 +344,7 @@ function push_gecko() {
     adb shell rm -r /system/b2g/distribution/bundles/libqc_b2g_ril
     # delete incompatible extensions
     adb shell rm -r /system/b2g/distribution/bundles/liblge_b2g_extension
+    show_free_space
 }
 
 function show_free_space() {

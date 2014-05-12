@@ -42,12 +42,13 @@
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</buildStepId>
       <buildStepArgs>
         <string>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-b2g28_v1_3t-tarako-eng/latest</string>
+        <string>tarako</string>
       </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>gaia.zip, b2g.en-US.android-arm.tar.gz, sources.xml</artifacts>
+      <artifacts>device.zip, gaia.zip, b2g.en-US.android-arm.tar.gz, sources.xml</artifacts>
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
