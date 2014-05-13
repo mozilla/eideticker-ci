@@ -57,7 +57,7 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>13</int>
+          <int>14</int>
           <string>ADB_PATH</string>
           <string></string>
           <string>B2G_BUILD_USERNAME</string>
@@ -79,6 +79,8 @@
           <string>PIP_DOWNLOAD_CACHE</string>
           <string>${HOME}/.pip_download_cache</string>
           <string>PIP_USE_MIRRORS</string>
+          <string>true</string>
+          <string>VIRTUALENV_SYSTEM_SITE_PACKAGES</string>
           <string>true</string>
           <string>WIFI_SECURITY</string>
           <string></string>
