@@ -2,7 +2,7 @@
 <hudson>
   <disabledAdministrativeMonitors/>
   <version>1.554.1</version>
-  <numExecutors>1</numExecutors>
+  <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
@@ -15,7 +15,43 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds/>
-  <slaves/>
+  <slaves>
+    <slave>
+      <name>dummy</name>
+      <description></description>
+      <remoteFS></remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
+        <host></host>
+        <port>22</port>
+      </launcher>
+      <label></label>
+      <nodeProperties>
+        <hudson.slaves.EnvironmentVariablesNodeProperty>
+          <envVars serialization="custom">
+            <unserializable-parents/>
+            <tree-map>
+              <default>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+              </default>
+              <int>4</int>
+              <string>ADB_PATH</string>
+              <string></string>
+              <string>CAPTURE_AREA</string>
+              <string></string>
+              <string>DEVICE_ID</string>
+              <string></string>
+              <string>DEVICE_NAME</string>
+              <string></string>
+            </tree-map>
+          </envVars>
+        </hudson.slaves.EnvironmentVariablesNodeProperty>
+      </nodeProperties>
+      <userId>anonymous</userId>
+    </slave>
+  </slaves>
   <quietPeriod>5</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
@@ -36,14 +72,18 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../slaves/slave/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
           </default>
-          <int>3</int>
+          <int>5</int>
+          <string>ADB_PATH</string>
+          <string></string>
           <string>CAPTURE_AREA</string>
           <string></string>
           <string>DEVICE_ID</string>
           <string></string>
           <string>DEVICE_NAME</string>
+          <string></string>
+          <string>NDK_PATH</string>
           <string></string>
         </tree-map>
       </envVars>
@@ -55,11 +95,9 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../slaves/slave/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
           </default>
-          <int>14</int>
-          <string>ADB_PATH</string>
-          <string></string>
+          <int>12</int>
           <string>B2G_BUILD_USERNAME</string>
           <string></string>
           <string>DASHBOARD_LOCAL_PATH</string>
@@ -71,8 +109,6 @@
           <string>DASHBOARD_URL</string>
           <string>http://eideticker.mozilla.org/b2g/</string>
           <string>DASHBOARD_USERNAME</string>
-          <string></string>
-          <string>NDK_PATH</string>
           <string></string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>
