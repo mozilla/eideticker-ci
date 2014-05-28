@@ -9,7 +9,7 @@ export JENKINS_HOME=$(dirname $BASH_SOURCE)/jenkins-master
 for PROG in curl java; do
     which $PROG > /dev/null
     if [ $? != 0 ]; then
-        echo "Required dep $PROG not found. Please install ('sudo apt-get install -y curl openjdk-6-jdk' on Ubuntu gets them all)"
+        echo "Required dep $PROG not found. Please install ('sudo apt-get install -y curl openjdk-7-jre' on Ubuntu gets them all)"
         exit 1
     fi
 done
