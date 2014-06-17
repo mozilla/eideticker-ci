@@ -84,6 +84,12 @@
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1402930586634</buildStepId>
+      <buildStepArgs>
+        <string>1.3</string>
+      </buildStepArgs>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1387475764685</buildStepId>
       <buildStepArgs>
         <string>${WIFI_SSID}</string>
