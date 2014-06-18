@@ -21,7 +21,7 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-b2g28_v1_3t-tarako-eng/latest/sources.xml</url>
+          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-central-flame-eng/latest/sources.xml</url>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -40,8 +40,8 @@
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</buildStepId>
       <buildStepArgs>
-        <string>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-b2g28_v1_3t-tarako-eng/latest</string>
-        <string>tarako</string>
+        <string>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-central-flame-eng/latest</string>
+        <string>flame</string>
       </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
@@ -57,7 +57,7 @@
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>
     <hudson.tasks.BuildTrigger>
-      <childProjects>b2g.tarako.mozilla-b2g28_v1_3t.tests</childProjects>
+      <childProjects>b2g.flame.mozilla-central.tests</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>

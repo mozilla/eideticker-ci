@@ -19,10 +19,8 @@
         <name>Install Orangutan</name>
         <comment>Install Orangutan on the device</comment>
         <content>#!/bin/bash -ex
-adb push orng /mnt/sdcard
-adb shell su -c dd if=/mnt/sdcard/orng of=/data/local/orng
-adb shell su -c chmod 700 /data/local/orng
-adb shell su -c rm /mnt/sdcard/orng</content>
+adb push orng /data/local/orng
+adb shell su -c chmod 700 /data/local/orng</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -221,10 +219,8 @@ echo &quot;&quot;</content>
         <name>Install NTP client</name>
         <comment>Install NTP client on the device</comment>
         <content>#!/bin/bash -ex
-adb push ntpclient /mnt/sdcard
-adb shell su -c dd if=/mnt/sdcard/ntpclient of=/data/local/ntpclient
-adb shell su -c chmod 700 /data/local/ntpclient
-adb shell su -c rm /mnt/sdcard/ntpclient</content>
+adb push ntpclient /data/local/ntpclient
+adb shell su -c chmod 700 /data/local/ntpclient</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>

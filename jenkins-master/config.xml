@@ -17,17 +17,46 @@
   <clouds/>
   <slaves>
     <slave>
-      <name>dummy</name>
+      <name>tarako</name>
       <description></description>
-      <remoteFS></remoteFS>
+      <remoteFS>/var/jenkins/tarako</remoteFS>
       <numExecutors>1</numExecutors>
       <mode>NORMAL</mode>
       <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-      <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.6">
-        <host></host>
-        <port>22</port>
-      </launcher>
-      <label></label>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>tarako</label>
+      <nodeProperties>
+        <hudson.slaves.EnvironmentVariablesNodeProperty>
+          <envVars serialization="custom">
+            <unserializable-parents/>
+            <tree-map>
+              <default>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+              </default>
+              <int>4</int>
+              <string>ADB_PATH</string>
+              <string></string>
+              <string>CAPTURE_AREA</string>
+              <string></string>
+              <string>DEVICE_ID</string>
+              <string></string>
+              <string>DEVICE_NAME</string>
+              <string></string>
+            </tree-map>
+          </envVars>
+        </hudson.slaves.EnvironmentVariablesNodeProperty>
+      </nodeProperties>
+      <userId>anonymous</userId>
+    </slave>
+    <slave>
+      <name>flame</name>
+      <description></description>
+      <remoteFS>/var/jenkins/flame</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>flame</label>
       <nodeProperties>
         <hudson.slaves.EnvironmentVariablesNodeProperty>
           <envVars serialization="custom">
@@ -69,7 +98,7 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
       <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../slaves/slave/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
       </jobNames>
       <jobFilters/>
       <columns>
@@ -94,7 +123,7 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../slaves/slave/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../views/listView/jobNames/comparator"/>
           </default>
           <int>5</int>
           <string>ADB_PATH</string>
@@ -117,7 +146,7 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../slaves/slave/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../views/listView/jobNames/comparator"/>
           </default>
           <int>12</int>
           <string>B2G_BUILD_USERNAME</string>
