@@ -73,6 +73,9 @@
       <externalDelete></externalDelete>
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.11"/>
-    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper/>
+    <EnvInjectPasswordWrapper plugin="envinject@1.89">
+      <injectGlobalPasswords>true</injectGlobalPasswords>
+      <passwordEntries/>
+    </EnvInjectPasswordWrapper>
   </buildWrappers>
 </project>

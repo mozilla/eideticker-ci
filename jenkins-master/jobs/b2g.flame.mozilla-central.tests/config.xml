@@ -153,6 +153,9 @@ DEVICE_TYPE=b2g</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>
-    <com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper/>
+    <EnvInjectPasswordWrapper plugin="envinject@1.89">
+      <injectGlobalPasswords>true</injectGlobalPasswords>
+      <passwordEntries/>
+    </EnvInjectPasswordWrapper>
   </buildWrappers>
 </project>
