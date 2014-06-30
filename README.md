@@ -43,7 +43,7 @@ Open http://localhost:8080/configure via your web browser. In the section
 ### Credentials
 
 Open http://localhost:8080/configure via your web browser. In the section
-"Mask Passwords - Global name/password pairs" add the following entries:
+"Global passwords" add the following entries:
 
 * `B2G_BUILD_PASSWORD` - password for accessing B2G builds
 * `WIFI_PASSWORD` - password for the WiFi network
