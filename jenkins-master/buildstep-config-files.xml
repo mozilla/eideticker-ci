@@ -231,6 +231,7 @@ adb shell su -c chmod 700 /data/local/ntpclient</content>
         <name>Run tests</name>
         <comment>Run the tests and update the dashboard</comment>
         <content>#!/bin/bash -ex
+adb logcat &gt; ${WORKSPACE}/logcat.txt &amp;
 TESTS=&quot;b2g-contacts-startup b2g-gallery-startup b2g-messages-startup b2g-music-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-contacts-scrolling b2g-messages-scrolling b2g-settings-scrolling b2g-callog-scrolling b2g-marketplace-scrolling&quot;
 ./bin/update-dashboard.py --output-dir=${DASHBOARD_LOCAL_PATH} --sources-xml=${WORKSPACE}/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time --dashboard-remote-path=${DASHBOARD_REMOTE_PATH} ${TESTS}
 zip -ur ${WORKSPACE}/dashboard.zip ${DASHBOARD_LOCAL_PATH}</content>
