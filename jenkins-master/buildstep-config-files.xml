@@ -20,7 +20,7 @@
         <comment>Install Orangutan on the device</comment>
         <content>#!/bin/bash -ex
 adb push orng /data/local/orng
-adb shell su -c chmod 700 /data/local/orng</content>
+adb shell chmod 700 /data/local/orng</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -220,7 +220,7 @@ echo &quot;&quot;</content>
         <comment>Install NTP client on the device</comment>
         <content>#!/bin/bash -ex
 adb push ntpclient /data/local/ntpclient
-adb shell su -c chmod 700 /data/local/ntpclient</content>
+adb shell chmod 700 /data/local/ntpclient</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
