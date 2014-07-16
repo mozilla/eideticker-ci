@@ -45,7 +45,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.30">
-      <project>b2g.flame.mozilla-central.download</project>
+      <project>b2g.flame.2.0.download</project>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
@@ -149,7 +149,8 @@
         <propertiesContent>VENV=${WORKSPACE}/.env
 PATH=${VENV}/bin:${ADB_PATH}:${PATH}
 CAPTURE_DEVICE=pointgrey
-DEVICE_TYPE=b2g</propertiesContent>
+DEVICE_TYPE=b2g
+BRANCH=2.0</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>

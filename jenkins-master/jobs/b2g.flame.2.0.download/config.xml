@@ -21,7 +21,9 @@
       <spec>H * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
-          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-central-flame-eng/latest/sources.xml</url>
+          <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-aurora-flame-eng/latest/sources.xml</url>
+          <username>jenkinsqa</username>
+          <password>qD0wZMQFOk6X5iYdaVm0Tad8tfi06/9YUpv9t/PVoug=</password>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
@@ -40,7 +42,7 @@
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397640880721</buildStepId>
       <buildStepArgs>
-        <string>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-central-flame-eng/latest</string>
+        <string>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/mozilla-aurora-flame-eng/latest</string>
         <string>flame</string>
       </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
@@ -51,13 +53,8 @@
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
-    <hudson.tasks.Mailer plugin="mailer@1.8">
-      <recipients>${NOTIFICATION_ADDRESS}</recipients>
-      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
-      <sendToIndividuals>false</sendToIndividuals>
-    </hudson.tasks.Mailer>
     <hudson.tasks.BuildTrigger>
-      <childProjects>b2g.flame.mozilla-central.tests</childProjects>
+      <childProjects>b2g.flame.2.0.tests</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
@@ -65,6 +62,11 @@
         <completeBuild>true</completeBuild>
       </threshold>
     </hudson.tasks.BuildTrigger>
+    <hudson.tasks.Mailer plugin="mailer@1.8">
+      <recipients>${NOTIFICATION_ADDRESS}</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.20">
