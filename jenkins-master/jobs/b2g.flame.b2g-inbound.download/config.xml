@@ -23,7 +23,7 @@
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
           <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/b2g-inbound-flame-eng/latest/sources.xml</url>
           <username>jenkinsqa</username>
-          <password>qD0wZMQFOk6X5iYdaVm0Tad8tfi06/9YUpv9t/PVoug=</password>
+          <password></password>
           <proxyActivated>false</proxyActivated>
           <checkStatus>false</checkStatus>
           <statusCode>200</statusCode>
