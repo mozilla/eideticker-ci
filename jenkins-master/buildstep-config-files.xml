@@ -10,7 +10,7 @@
         <content>#!/bin/bash -ex
 ./bootstrap.sh</content>
         <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriprtConfig>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</string>
