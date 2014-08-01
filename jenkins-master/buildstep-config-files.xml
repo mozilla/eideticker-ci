@@ -108,6 +108,21 @@ make</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1406023587150</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1406023587150</id>
+        <name>Reset memory allocation</name>
+        <comment>Set the amount of memory allocated to the B2G device</comment>
+        <content>#!/bin/bash -e
+echo -e &quot;\n\033[1mResetting memory allocation\033[0m&quot;
+adb reboot bootloader
+fastboot oem mem $DEVICE_MEMORY
+fastboot reboot
+sleep 60</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</id>

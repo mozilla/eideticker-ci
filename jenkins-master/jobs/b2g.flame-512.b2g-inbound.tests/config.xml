@@ -36,7 +36,7 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>flame</assignedNode>
+  <assignedNode>flame-512</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -44,6 +44,12 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
+    <EnvInjectBuilder plugin="envinject@1.89">
+      <info>
+        <propertiesContent>DEVICE_ID=${DEVICE_ID}-${DEVICE_MEMORY}
+DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
+      </info>
+    </EnvInjectBuilder>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.30">
       <project>b2g.flame.b2g-inbound.download</project>
       <filter></filter>
@@ -56,6 +62,9 @@
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1406023587150</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</buildStepId>
@@ -148,9 +157,10 @@
       <info>
         <propertiesContent>VENV=${WORKSPACE}/.env
 PATH=${VENV}/bin:${ADB_PATH}:${PATH}
+BRANCH=b2g-inbound
 CAPTURE_DEVICE=pointgrey
 DEVICE_TYPE=b2g
-BRANCH=b2g-inbound</propertiesContent>
+DEVICE_MEMORY=512</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>

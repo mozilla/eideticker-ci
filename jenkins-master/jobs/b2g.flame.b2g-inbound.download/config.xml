@@ -18,7 +18,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <org.jenkinsci.plugins.urltrigger.URLTrigger plugin="urltrigger@0.37">
-      <spec>H * * * *</spec>
+      <spec>H/10 * * * *</spec>
       <entries>
         <org.jenkinsci.plugins.urltrigger.URLTriggerEntry>
           <url>https://pvtbuilds.mozilla.org/pvt/mozilla.org/b2gotoro/tinderbox-builds/b2g-inbound-flame-eng/latest/sources.xml</url>
@@ -54,7 +54,7 @@
       <allowEmptyArchive>false</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
     <hudson.tasks.BuildTrigger>
-      <childProjects>b2g.flame.b2g-inbound.tests</childProjects>
+      <childProjects>b2g.flame-319.b2g-inbound.tests,b2g.flame-512.b2g-inbound.tests</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
