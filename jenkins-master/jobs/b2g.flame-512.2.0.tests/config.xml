@@ -101,6 +101,12 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1402930586634</buildStepId>
+      <buildStepArgs>
+        <string>2.0</string>
+      </buildStepArgs>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397495425159</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
