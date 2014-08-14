@@ -36,7 +36,7 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>flame-512</assignedNode>
+  <assignedNode>galaxynexus</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -44,14 +44,8 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <EnvInjectBuilder plugin="envinject@1.89">
-      <info>
-        <propertiesContent>DEVICE_ID=${DEVICE_ID}-${DEVICE_MEMORY}
-DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
-      </info>
-    </EnvInjectBuilder>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.30">
-      <project>b2g.flame.b2g-inbound.download</project>
+      <project>android.mozilla-central.download</project>
       <filter></filter>
       <target></target>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
@@ -61,13 +55,13 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381395043707</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381393993637</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1406023587150</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1405010365649</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012229776</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.30">
       <project>orangutan</project>
@@ -96,37 +90,15 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1387475764685</buildStepId>
-      <buildStepArgs>
-        <string>${WIFI_SSID}</string>
-        <string>${WIFI_SECURITY}</string>
-        <string>${WIFI_PASSWORD}</string>
-      </buildStepArgs>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397495425159</buildStepId>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394662775</buildStepId>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <EnvInjectBuilder plugin="envinject@1.89">
-      <info>
-        <propertiesFilePath>eideticker.properties</propertiesFilePath>
-      </info>
-    </EnvInjectBuilder>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1397557096176</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1405032936361</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>logcat.txt, captures/*.zip, eideticker.properties, dimensions.png, dashboard.zip</artifacts>
+      <artifacts>captures/*.zip, eideticker.properties, dashboard.zip</artifacts>
       <latestOnly>false</latestOnly>
       <allowEmptyArchive>true</allowEmptyArchive>
     </hudson.tasks.ArtifactArchiver>
@@ -163,18 +135,13 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       <info>
         <propertiesContent>VENV=${WORKSPACE}/.env
 PATH=${VENV}/bin:${ADB_PATH}:${PATH}
-BRANCH=b2g-inbound
-CAPTURE_DEVICE=pointgrey
-DEVICE_TYPE=b2g
-DEVICE_MEMORY=512
-DASHBOARD_ID=b2g
-DASHBOARD_NAME=FirefoxOS</propertiesContent>
+CAPTURE_DEVICE=decklink
+DEVICE_TYPE=android
+BRANCH=mozilla-central
+DASHBOARD_ID=android
+DASHBOARD_NAME=Android</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>
-    <EnvInjectPasswordWrapper plugin="envinject@1.89">
-      <injectGlobalPasswords>true</injectGlobalPasswords>
-      <passwordEntries/>
-    </EnvInjectPasswordWrapper>
   </buildWrappers>
 </project>

@@ -80,6 +80,40 @@
       </nodeProperties>
       <userId>anonymous</userId>
     </slave>
+    <slave>
+      <name>galaxy-nexus</name>
+      <description></description>
+      <remoteFS>/var/jenkins/galaxynexus</remoteFS>
+      <numExecutors>1</numExecutors>
+      <mode>NORMAL</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.JNLPLauncher"/>
+      <label>galaxynexus</label>
+      <nodeProperties>
+        <hudson.slaves.EnvironmentVariablesNodeProperty>
+          <envVars serialization="custom">
+            <unserializable-parents/>
+            <tree-map>
+              <default>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+              </default>
+              <int>5</int>
+              <string>ADB_PATH</string>
+              <string></string>
+              <string>DEVICE_ID</string>
+              <string>samsung-gn</string>
+              <string>DEVICE_NAME</string>
+              <string>Galaxy Nexus</string>
+              <string>DM_TRANS</string>
+              <string>sut</string>
+              <string>TEST_DEVICE</string>
+              <string></string>
+            </tree-map>
+          </envVars>
+        </hudson.slaves.EnvironmentVariablesNodeProperty>
+      </nodeProperties>
+      <userId>anonymous</userId>
+    </slave>
   </slaves>
   <quietPeriod>5</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
@@ -113,6 +147,28 @@
       <includeRegex>b2g\..*</includeRegex>
       <recurse>false</recurse>
     </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>Android</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>android\..*</includeRegex>
+      <recurse>false</recurse>
+    </listView>
   </views>
   <primaryView>All</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
@@ -123,16 +179,10 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../views/listView/jobNames/comparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../slaves/slave[3]/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
           </default>
-          <int>5</int>
+          <int>2</int>
           <string>ADB_PATH</string>
-          <string></string>
-          <string>CAPTURE_AREA</string>
-          <string></string>
-          <string>DEVICE_ID</string>
-          <string></string>
-          <string>DEVICE_NAME</string>
           <string></string>
           <string>NDK_PATH</string>
           <string></string>
@@ -146,7 +196,7 @@
         <unserializable-parents/>
         <tree-map>
           <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../views/listView/jobNames/comparator"/>
+            <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../../../../slaves/slave[3]/nodeProperties/hudson.slaves.EnvironmentVariablesNodeProperty/envVars/tree-map/default/comparator"/>
           </default>
           <int>12</int>
           <string>B2G_BUILD_USERNAME</string>
@@ -154,12 +204,12 @@
           <string>DASHBOARD_LOCAL_PATH</string>
           <string>${WORKSPACE}/dashboard/</string>
           <string>DASHBOARD_REMOTE_PATH</string>
-          <string></string>
+          <string>~/www</string>
           <string>DASHBOARD_SERVER</string>
           <string></string>
           <string>DASHBOARD_URL</string>
-          <string>http://eideticker.mozilla.org/b2g/</string>
-          <string>DASHBOARD_USERNAME</string>
+          <string></string>
+          <string>DASHBOARD_USER</string>
           <string></string>
           <string>NOTIFICATION_ADDRESS</string>
           <string></string>

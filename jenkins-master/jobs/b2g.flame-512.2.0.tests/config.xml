@@ -77,7 +77,10 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012342230</buildStepId>
+      <buildStepArgs>
+        <string>orng</string>
+      </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.30">
       <project>ntpclient-android</project>
@@ -87,7 +90,10 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012342230</buildStepId>
+      <buildStepArgs>
+        <string>ntpclient</string>
+      </buildStepArgs>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>

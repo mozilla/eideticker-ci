@@ -2,6 +2,38 @@
 <org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider plugin="managed-scripts@1.1.1">
   <configs>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012342230</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012342230</id>
+        <name>Install executable on device</name>
+        <comment>Installs an executable on device in /data/local</comment>
+        <content>#!/bin/bash -ex
+DEVICE_ROOT=`dm deviceroot`
+TMP_LOCATION=$DEVICE_ROOT/$1
+dm push $1 $TMP_LOCATION
+dm shell --root cp $TMP_LOCATION /data/local/$1
+dm shell --root rm $TMP_LOCATION
+dm shell --root chmod 700 /data/local/$1</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>EXECUTABLE_NAME</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012229776</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1405012229776</id>
+        <name>Build Decklink</name>
+        <comment>Build Decklink Capture Library</comment>
+        <content>#!/bin/bash -ex
+cd src/videocapture/videocapture/decklink/
+make</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</id>
@@ -9,18 +41,6 @@
         <comment>Install Eideticker dependencies</comment>
         <content>#!/bin/bash -ex
 ./bootstrap.sh</content>
-        <args/>
-      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
-    </entry>
-    <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</string>
-      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394297522</id>
-        <name>Install Orangutan</name>
-        <comment>Install Orangutan on the device</comment>
-        <content>#!/bin/bash -ex
-adb push orng /data/local/orng
-adb shell chmod 700 /data/local/orng</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
@@ -96,6 +116,21 @@ virtualenv .env</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1405032936361</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1405032936361</id>
+        <name>Run tests (Android)</name>
+        <comment>Run the tests and update the dashboard for Android</comment>
+        <content>#!/bin/bash -ex
+rm -rf /tmp/eideticker/*
+dm reboot --wait
+TESTS=&quot;startup-abouthome-dirty startup-abouthome-fresh nytimes-load-poststartup nytimes-load taskjs cnn imgur nightly&quot;
+./bin/update-dashboard.py --output-dir=${DASHBOARD_LOCAL_PATH} --apk fennec.apk --num-runs=3 --dashboard-remote-path=${DASHBOARD_REMOTE_PATH} ${TESTS}
+zip -ur ${WORKSPACE}/dashboard.zip ${DASHBOARD_LOCAL_PATH}</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</id>
@@ -138,6 +173,18 @@ fi</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1405010365649</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1405010365649</id>
+        <name>Install Fennec</name>
+        <comment>Install fennec .apk on device</comment>
+        <content>#!/bin/bash -ex
+
+dm -v install fennec.apk</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1387475764685</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1387475764685</id>
@@ -159,18 +206,14 @@ fi</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1402930586634</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1404941328553</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1402930586634</id>
-        <name>Set Gaia version</name>
-        <comment>Set version for Gaia compatibility</comment>
-        <content>#!/bin/bash -ex
-./set_version.sh $1</content>
-        <args>
-          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
-            <name>VERSION</name>
-          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
-        </args>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1404941328553</id>
+        <name>Download Fennec</name>
+        <comment>Download the Fennec .apk from specified location</comment>
+        <content>wget -r -l1 -nd -np --accept-regex fennec.*android-arm\.apk $1
+mv *.apk fennec.apk</content>
+        <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
@@ -228,23 +271,26 @@ echo &quot;&quot;</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
-      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</string>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1402930586634</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
-        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394404621</id>
-        <name>Install NTP client</name>
-        <comment>Install NTP client on the device</comment>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1402930586634</id>
+        <name>Set Gaia version</name>
+        <comment>Set version for Gaia compatibility</comment>
         <content>#!/bin/bash -ex
-adb push ntpclient /data/local/ntpclient
-adb shell chmod 700 /data/local/ntpclient</content>
-        <args/>
+./set_version.sh $1</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>VERSION</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394732681</id>
-        <name>Run tests</name>
-        <comment>Run the tests and update the dashboard</comment>
+        <name>Run tests (B2G)</name>
+        <comment>Run the tests and update the dashboard for B2G</comment>
         <content>#!/bin/bash -x
 adb logcat -c
 TESTS=&quot;b2g-contacts-startup b2g-gallery-startup b2g-messages-startup b2g-music-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-dialer-startup b2g-template-startup&quot;
