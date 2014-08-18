@@ -160,7 +160,9 @@ PATH=${VENV}/bin:${ADB_PATH}:${PATH}
 BRANCH=b2g-inbound
 CAPTURE_DEVICE=pointgrey
 DEVICE_TYPE=b2g
-DEVICE_MEMORY=512</propertiesContent>
+DEVICE_MEMORY=512
+DASHBOARD_ID=b2g
+DASHBOARD_NAME=FirefoxOS</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
     </EnvInjectBuildWrapper>
