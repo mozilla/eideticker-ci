@@ -69,6 +69,9 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394871633</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.30">
       <project>orangutan</project>
       <filter></filter>
@@ -94,9 +97,6 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       <buildStepArgs>
         <string>ntpclient</string>
       </buildStepArgs>
-    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
-    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1381394514932</buildStepId>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1387475764685</buildStepId>
