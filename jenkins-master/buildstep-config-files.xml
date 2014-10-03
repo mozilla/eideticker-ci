@@ -211,7 +211,7 @@ dm -v install fennec.apk</content>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1404941328553</id>
         <name>Download Fennec</name>
         <comment>Download the Fennec .apk from specified location</comment>
-        <content>wget -r -l1 -nd -np --accept-regex fennec.*android-arm\.apk $1
+        <content>wget -r -l1 -nd -np -Afennec.*android-arm\.apk $1
 mv *.apk fennec.apk</content>
         <args/>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
