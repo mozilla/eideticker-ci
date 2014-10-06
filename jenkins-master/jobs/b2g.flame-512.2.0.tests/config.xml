@@ -54,7 +54,9 @@ DEVICE_NAME=${DEVICE_NAME} (${DEVICE_MEMORY}M)</propertiesContent>
       <project>b2g.flame.2.0.download</project>
       <filter></filter>
       <target></target>
-      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <selector class="hudson.plugins.copyartifact.TriggeredBuildSelector">
+        <fallbackToLastSuccessful>true</fallbackToLastSuccessful>
+      </selector>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.1.1">
