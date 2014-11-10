@@ -155,6 +155,8 @@
       <properties class="hudson.model.View$PropertyList"/>
       <jobNames>
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>android.galaxy-nexus.mozilla-inbound.tests</string>
+        <string>android.mozilla-inbound.download</string>
       </jobNames>
       <jobFilters/>
       <columns>

@@ -116,6 +116,21 @@ virtualenv .env</content>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
     </entry>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1415654015136</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1415654015136</id>
+        <name>Run startup tests only (Android)</name>
+        <comment></comment>
+        <content>#!/bin/bash -ex
+rm -rf /tmp/eideticker/*
+dm reboot --wait
+TESTS=&quot;startup-abouthome-dirty nytimes-load-poststartup&quot;
+./bin/update-dashboard.py --output-dir=${DASHBOARD_LOCAL_PATH} --apk fennec.apk --num-runs=3 ${TESTS}
+zip -ur ${WORKSPACE}/dashboard.zip ${DASHBOARD_LOCAL_PATH}</content>
+        <args/>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1405032936361</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1405032936361</id>
