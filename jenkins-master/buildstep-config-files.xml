@@ -293,7 +293,7 @@ echo &quot;&quot;</content>
         <comment>Run the tests and update the dashboard for B2G</comment>
         <content>#!/bin/bash -x
 adb logcat -c
-TESTS=&quot;b2g-gallery-startup b2g-music-startup b2g-settings-startup b2g-marketplace-startup b2g-dialer-startup b2g-template-startup&quot;
+TESTS=&quot;b2g-gallery-startup b2g-music-startup b2g-settings-startup b2g-camera-startup b2g-marketplace-startup b2g-dialer-startup b2g-template-startup&quot;
 ./bin/update-dashboard.py --output-dir=${DASHBOARD_LOCAL_PATH} --sources-xml=${WORKSPACE}/sources.xml --num-runs=3 --wifi-settings=${WORKSPACE}/wifi.json --no-sync-time --dashboard-remote-path=${DASHBOARD_REMOTE_PATH} ${TESTS}
 TEST_RESULT=$?
 adb logcat -v threadtime -d &gt; logcat.txt
